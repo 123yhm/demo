@@ -1,0 +1,43 @@
+---
+#yml配置：---三杠代表多文档块，注意通过看编辑器下方的document数字变化
+#注意使用该种方式需要注释掉properties文件中的端口号，防止冲突。然后可以通过spring中的激活
+#通过命令的方式指定：通过当前运行的配置program-arguments中指定哪种方式运行:--spring.profiles.active=prod
+#通过打成jar包 在运行jar包名称 后面加上上面的命令指定jar在那个环境下运行
+#在运行配置文件中更改通过虚拟机运行指定环境：-Dspring.profiles.active=prod
+---
+server:
+  port: 8081
+
+#spring:
+#  profiles:
+#    active: dev
+#默认是以上端口，其他开发环境需要指定激活
+
+---
+#开发环境
+server:
+  port: 8082
+spring:
+  profiles: dev
+
+
+---
+#生产环境
+server:
+  port: 8084
+spring:
+  profiles: prod
+---
+
+#proson:
+#  lastName: 阳浩明
+#  age: 20
+#  boos: false
+#  birth: 2018/12/27
+#  mapv: {张三: 大三,李四: 大四}
+#  listv:
+#    - xiaobing
+#    - dabing
+#  dog:
+#    dogName: 小狗
+#    dogAge: 3
