@@ -7,5 +7,11 @@
 <body>
 <h1>欢迎来到首页</h1>
 <div th:text="${hello}"></div>
+<hr/>
+<div>
+    <h4 th:each="per:${person}">[[${per}]]</h4>
+    <HR>
+    <H4 th:utext="${per}" th:each="per:${person}"></H4>
+</div>
 </body>
 </html>
