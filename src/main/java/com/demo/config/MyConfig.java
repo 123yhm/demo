@@ -3,10 +3,11 @@ package com.demo.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import com.demo.interceptor.LoginHandleInterceptor;
 /**
  * @Auther: Administrator
  * @Date: 2019-05-23 23:14
@@ -24,19 +25,34 @@ public class MyConfig extends WebMvcConfigurerAdapter {
     }
 
     /**
+     *
      * 配置首页访问的路径
+     *注册到容器中，让容器进行加载
      * @return
+     *
      */
-    @Bean   //注册到容器中，让容器进行加载
+    @Bean
     public WebMvcConfigurerAdapter webMvcConfigurerAdapter(){
         WebMvcConfigurerAdapter adapter = new WebMvcConfigurerAdapter(){
             @Override
             public void addViewControllers(ViewControllerRegistry registry) {
                 registry.addViewController("/").setViewName("login");
                 registry.addViewController("/login").setViewName("login");
+                registry.addViewController("/user/main").setViewName("dashboard");//重定向到主页
+            }
+
+            @Override
+            public void addInterceptors(InterceptorRegistry registry) {
+                registry.addInterceptor(new LoginHandleInterceptor()).addPathPatterns("/**")
+                        .excludePathPatterns("/","/login","/user/login");
             }
         };
         return adapter;
+    }
+
+    @Bean
+    public MyLocaleResolver localeResolver(){
+        return new MyLocaleResolver();
     }
 
 }
