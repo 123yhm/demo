@@ -1,6 +1,8 @@
 package com.demo.controller;
 
+import com.demo.dao.DepartmentDao;
 import com.demo.dao.EmployeeDao;
+import com.demo.entity.Department;
 import com.demo.entity.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +22,8 @@ import java.util.Collection;
 public class EmployeeController {
     @Autowired
     private EmployeeDao employeedao;
+    @Autowired
+    private DepartmentDao departmentDao;
 
     @GetMapping(value = "/user/emps")
     public String list(Model model){
@@ -29,5 +33,11 @@ public class EmployeeController {
         model.addAttribute("emps",empList);
         System.out.println("结束");
         return "emp/list";
+    }
+    @GetMapping(value ="/user/emp")
+    public  String getEmpAdd(Model model){
+        Collection<Department> departments = departmentDao.getDepartments();
+        model.addAttribute("dept",departments);
+        return "emp/listadd";
     }
 }
