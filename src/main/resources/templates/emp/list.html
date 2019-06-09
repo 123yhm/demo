@@ -69,13 +69,13 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="emp:${emps}">
-									<th th:text="${emp.id}"></th>
-									<th>[[${emp.lastName}]]</th>
-									<th th:text="${emp.email}"></th>
-									<th th:text="${emp.gender}==0?'女':'男'"></th>
-									<th th:text="${emp.department.departmentName}"></th>
-									<th th:text="${#dates.format(emp.birth,'yyyy-MM-DD:HH:mm:ssss')}"></th>
+								<tr th:each="ep:${emps}">
+									<th th:text="${ep.id}"></th>
+									<th>[[${ep.lastName}]]</th>
+									<th th:text="${ep.email}"></th>
+									<th th:text="${ep.gender}==0?'女':'男'"></th>
+									<th th:text="${ep.department.departmentName}"></th>
+									<th th:text="${#dates.format(ep.birth,'yyyy-MM-DD')}"></th>
 									<th>
 										<button class="btn btn-sm btn-primary">编辑</button>
 										<button class="btn btn-sm btn-danger">删除</button>
