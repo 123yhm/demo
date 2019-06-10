@@ -52,40 +52,45 @@
 				<!--使用（id）选择器来进行替换1  <div th:replace="~{dashboard::#sidebar}"></div>-->
 
 				<!--引入公共资源2-->
-				<div th:replace="commons/bar::#sidebar(activeUrl='user/emps')"></div>
+				<div th:replace="commons/bar::#sidebar(activeUrl='/emps')"></div>
 				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-					<form th:action="@{empAdds}" th:method="post">
-
+					<form th:action="@{/empAdds}"  method="post">
+				<!--
+				1、判断条件是否成立
+				2、创建爱你隐藏的put请求
+				-->
+						<input type="hidden" name="_method" value="put" th:if="${emp!=null}" >
+						<input type="hidden" name="id" th:value="${emp.id}" th:if="${emp!=null}" >
 						<div class="form-group">
 							<label>员工姓名</label>
-							<input type="text" name="lastName" class="form-control" placeholder="员工姓名">
+							<input type="text" name="lastName" class="form-control" placeholder="员工姓名" th:value="${emp!=null}?${emp.lastName}">
 						</div>
 						<div class="form-group">
 							<label>员工邮箱</label>
-							<input type="email" name="email" class="form-control" placeholder="zhangsan@atguigu.com">
+							<input type="email" name="email" class="form-control" placeholder="zhangsan@atguigu.com" th:value="${emp!=null}?${emp.email}">
 						</div>
 						<div class="form-group">
 							<label>员工性别</label><br/>
 							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="radio" name="gender"  value="1">
+								<input class="form-check-input" type="radio" name="gender"  value="1" th:checked="${emp!=null}?${emp.gender}==1">
 								<label class="form-check-label">男</label>
 							</div>
 							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="radio" name="gender"  value="0">
+								<input class="form-check-input" type="radio" name="gender"  value="0" th:checked="${emp!=null}?${emp.gender==0}">
 								<label class="form-check-label">女</label>
 							</div>
 						</div>
 						<div class="form-group">
 							<label>部门名称</label>
 							<select class="form-control" name="department.id">
-								<option th:each="depts:${dept}" th:text="${depts.departmentName}"></option>
+								<option th:selected="${emp!=null}?${depts.id}==${emp.department.id}" th:value="${depts.id}" th:each="depts:${dept}" th:text="${depts.departmentName}"></option>
 							</select>
 						</div>
 						<div class="form-group">
 							<label>时间</label>
-							<input type="text" name="birth" class="form-control" placeholder="zhangsan">
+							<input type="text" name="birth" class="form-control" placeholder="zhangsan" th:value="${emp!=null}?${#dates.format(emp.birth,'yyyy-MM-dd')}">
 						</div>
-						<button type="submit" class="btn btn-primary">添加</button>
+						<button type="submit" class="btn btn-primary" th:text="${emp!=null}?'修改':'添加'"></button>
 					</form>
 				</main>
 			</div>
@@ -94,19 +99,19 @@
 		<!-- Bootstrap core JavaScript
     ================================================== -->
 		<!-- Placed at the end of the document so the pages load faster -->
-		<script type="text/javascript" th:src="/asserts/js/jquery-3.2.1.slim.min.js"></script>
-		<script type="text/javascript" th:src="/asserts/js/popper.min.js"></script>
+
+		<!--<script type="text/javascript" th:src="/asserts/js/popper.min.js"></script>
 		<script type="text/javascript" th:src="/asserts/js/bootstrap.min.js"></script>
 
-		<!-- Icons -->
+		&lt;!&ndash; Icons &ndash;&gt;
 		<script type="text/javascript" th:src="/asserts/js/feather.min.js"></script>
 		<script>
 			feather.replace()
 		</script>
 
-		<!-- Graphs -->
-		<script type="text/javascript" th:src="/asserts/js/Chart.min.js"></script>
-		<script>
+		&lt;!&ndash; Graphs &ndash;&gt;
+		<script type="text/javascript" th:src="/asserts/js/Chart.min.js"></script>-->
+		<!--<script>
 			var ctx = document.getElementById("myChart");
 			var myChart = new Chart(ctx, {
 				type: 'line',
@@ -135,7 +140,7 @@
 				}
 			});
 		</script>
-
+-->
 	</body>
 
 </html>

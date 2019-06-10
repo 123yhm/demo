@@ -19,9 +19,12 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <!--指定themleaft2版本 支持相对应的布局功能版本在2以上-->
-        <thymeleaf.version>3.0.11.RELEASE</thymeleaf.version>
+
+        <thymeleaf.version>3.0.2.RELEASE</thymeleaf.version>
+        <thymeleaf-layout-dialect.version>2.1.1</thymeleaf-layout-dialect.version>
+
         <!--布局功能扩展-->
-        <thymeleaf-layout-dialect.version>2.4.1</thymeleaf-layout-dialect.version>
+        <!--<thymeleaf-layout-dialect.version>2.4.1</thymeleaf-layout-dialect.version>-->
     </properties>
     <dependencies>
         <dependency>
